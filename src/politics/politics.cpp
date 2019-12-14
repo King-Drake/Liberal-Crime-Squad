@@ -54,16 +54,14 @@ vector<string> corporateSuffix;
 			 return false; // if the view doesn't exist, assume false
 	 }
  }
- /* politics - checks the prevailing attitude on a specific law, or overall */
- int publicmood(const int old_l)
- {
+
+ // a function to transform a view into a law
+ int viewToLaw(const short arr[VIEWNUM], const int old_l) {
 	 int l = old_l;
 	 if (lawReturnAttitude.count(l)) {
-		 return lawReturnAttitude[l];
-	 }
-	 else {
-		 switch (l)
-		 {  // All laws should be affected by exactly one issue if there is a direct
+		 return arr[lawReturnAttitude[l]];
+	 } else {
+		 switch (l) {  // All laws should be affected by exactly one issue if there is a direct
 			// correlation between that law and an issue. For example, police behavior
 			// as a law should depend only upon police behavior as an issue. This keeps
 			// the game logical to the player and ensures that the public opinion polls
@@ -78,24 +76,35 @@ vector<string> corporateSuffix;
 			// players, like people refusing to further regulate nuclear power because
 			// one of the other issues besides nuclear power is conservative, even when
 			// the nuclear power issue is 100% Liberal. - Jonathan S. Fox
-		 case LAW_CORPORATE: return (attitude[VIEW_CORPORATECULTURE] + attitude[VIEW_CEOSALARY]) / 2; // <-- We'll be merging these two views here because there is no CEO salary law.
-																									  // The issue is there for flavor, and falls under the same umbrella of
-																									  // corporate regulation. - Jonathan S. Fox
-		 case LAW_STALIN:
-			 l = 0;
-			 for (int v = 0; v < VIEWNUM - 3; v++)
-				 if (stalinview(v, false)) l += 100 - attitude[v];
-				 else l += attitude[v];
+			 case LAW_CORPORATE: return (arr[VIEW_CORPORATECULTURE] + arr[VIEW_CEOSALARY]) / 2; // <-- We'll be merging these two views here because there is no CEO salary law.
+																										  // The issue is there for flavor, and falls under the same umbrella of
+																										  // corporate regulation. - Jonathan S. Fox
+			 case LAW_STALIN:
+				 l = 0;
+				 for (int v = 0; v < VIEWNUM - 3; v++)
+					 if (stalinview(v, false)) l += 100 - arr[v];
+					 else l += arr[v];
 				 return l / (VIEWNUM - 3);
-		 case LAW_ELECTIONS:
-		 case LAW_MOOD:
-		 default: //eg. -1
-			 l = 0;
-			 for (int v = 0; v < VIEWNUM - 3; v++) l += attitude[v];
-			 return l / (VIEWNUM - 3);
+			 case LAW_ELECTIONS:
+			 case LAW_MOOD:
+			 default: //eg. -1
+				 l = 0;
+				 for (int v = 0; v < VIEWNUM - 3; v++) l += arr[v];
+				 return l / (VIEWNUM - 3);
 		 }
 	 }
  }
+ 
+ /* politics - checks the prevailing attitude on a specific law, or overall */
+ int publicmood(const int old_l){
+	 return viewToLaw(attitude, old_l);
+ }
+
+ /* politics - checks the public's interest in a specific law, or overall*/
+ int publicinterest(const int old_l) {
+	 return viewToLaw(public_interest, old_l);
+ }
+
  /* common - shifts public opinion on an issue */
  void change_public_opinion(int v, int power, char affect, char cap)
  {
@@ -190,8 +199,6 @@ vector<string> corporateSuffix;
 	 if (attitude[v] < 0)attitude[v] = 0;
 	 if (attitude[v] > 100)attitude[v] = 100;
  }
-
-
 
  /* politics -- gets the leaning of an issue voter for an election */
  int getswingvoter(bool stalin)
@@ -743,7 +750,7 @@ vector<string> corporateSuffix;
 		 if (lawList[l] == -2) lawdir[l] = 1;
 		 if (lawList[l] == 2) lawdir[l] = -1;
 		 pvote = (lawList[l] + 2) * 25; //CALC PRIORITY
-		 lawpriority[l] = abs(pvote - pmood) + LCSrandom(10) + public_interest[l];
+		 lawpriority[l] = abs(pvote - pmood) + LCSrandom(10) + publicinterest(l);
 	 }
 	 prop.resize(pnum);
 	 propdir.resize(pnum);
@@ -945,8 +952,9 @@ vector<string> corporateSuffix;
  //More extreme politicians are less likely to deviate from their views. Moderates always consult public opinion.
  char determine_politician_vote(char alignment, int law)
  {
-	 char vote = alignment;
+	 char vote = alignment; // politicians will never sway more than 1 step from this
 	 int mood = publicmood(law);
+	 int interest = publicinterest(law) / 10;
 	 if (vote == ALIGN_STALINIST)
 	 {
 		 // Stalinist -- Will not accept public opinion
@@ -955,14 +963,27 @@ vector<string> corporateSuffix;
 	 }
 	 else if (vote == -2 || vote == 2)
 	 {
-		 // Extremist -- Damn public opinion, I'm doing what I think is right
+		 // Extremist -- Highly resistant to public opinion
+		 interest -= 10 + LCSrandom(15); 
+		 if (interest > 0) {
+			 // The masses are scary! Could be swayed, but only one step towards moderation
+			 vote = -2;
+			 for (int i = 0; i < 4; i++)if (LCSrandom(100) < mood) vote++;
+			 if (abs(vote - alignment) > 1) vote = alignment / 2;
+		 }
 	 }
 	 else if (vote == -1 || vote == 1)
 	 {
-		 // Partisan -- Listens to public opinion, but won't accept opposing views
+		 // Partisan -- Tends to listen to public opinion only if they're watching
+		 interest -= LCSrandom(10);
 		 vote = -2;
 		 for (int i = 0; i < 4; i++)if (LCSrandom(100) < mood)vote++;
-		 if (abs(vote - alignment) > 1)vote = 0;
+		 if (interest > 0) {
+			 if (abs(vote - alignment) > 1) vote = 0;
+		 } else if (abs(vote + alignment) < 2){
+			 // will compromise with the elites, but not with the moderates
+			 vote = alignment;
+		 }
 	 }
 	 else if (vote == 0)
 	 {
@@ -1015,11 +1036,11 @@ vector<string> corporateSuffix;
 		 }
 		 // Consult Public Opinion
 		 int mood = publicmood(l);
-		 int public_position = -2;
-		 for (int i = 0; i < 4; i++)if (10 + 20 * i < mood)public_position++;
-		 if (lawList[l] < public_position)pup += 600;
-		 if (lawList[l] > public_position)pdown += 600;
-		 pprior += abs(public_position - lawList[l]) * 600;
+		 int public_position = (mood / 20) - 2;
+		 int gravitas = publicinterest(l) * 10;
+		 if (lawList[l] < public_position)pup += gravitas;
+		 if (lawList[l] > public_position)pdown += gravitas;
+		 pprior += abs(public_position - lawList[l]) * ((gravitas + 600) / 2);
 		 if (pup > pdown) lawdir[l] = 1;
 		 else if (pup == pdown) lawdir[l] = LCSrandom(2) * 2 - 1;
 		 else lawdir[l] = -1;

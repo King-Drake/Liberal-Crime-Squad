@@ -28,6 +28,9 @@ void amnesty();
 char wincheck();
 /* politics - checks the prevailing attitude on a specific law, or overall */
 int publicmood(int l);
+/* politics - checks the public's interest in a specific law, or overall*/
+int publicinterest(int i);
+
 /* returns true if Stalinists agree with Elite Liberals on a view/law, false if they strongly disagree with libs  *
  * the input bool islaw, if true, returns Stalinist opinion on laws, if false, returns Stalinist opinion on views */
 bool stalinview(short view, bool islaw);
