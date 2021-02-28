@@ -16,7 +16,7 @@
 // Gives you bloody armor
 //GIVEBLOODYARMOR
 // Start with lots of money
-//HIGHFUNDS
+HIGHFUNDS
 // Interrogation always enlightens
 //AUTOENLIGHTEN
 // Show polls when you can't see things
@@ -42,7 +42,7 @@
 // Allow Stalinist Comrade Squad mode to be chosen for new games
 //ALLOWSTALIN
 // Store savefiles in plaintext, making it human readable and editable
-//VERBOSESAVEFILE
+VERBOSESAVEFILE
 // NOVERBOSECOMMENTS only affect anything if VERBOSESAVEFILE is active
 // Remove almost all automatically generated comments from verbose savefiles
 //NOVERBOSECOMMENTS

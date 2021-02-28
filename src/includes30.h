@@ -37,5 +37,6 @@ using namespace std;
 //#ifdef	LOOTTYPEPOOL_CPP
 // lootTypePool.cpp
 
+const string CONST_LOOT = "loot";
 //#endif//LOOTTYPEPOOL_CPP
 //#endif// INCLUDES_H_INCLUDED

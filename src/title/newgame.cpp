@@ -27,6 +27,7 @@ This file is part of Liberal Crime Squad.                                       
 
 #include "../includes04.h"
 #include "../constStringnewgame.h"
+const string error = "ERROR";
 
 bool getSetValue(const string& s) {
 	int j = -1;

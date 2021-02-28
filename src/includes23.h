@@ -37,6 +37,7 @@ using namespace std;
 //#ifdef	LOG_CPP
 // log.cpp
 
+const string CONST_LAST_MESSAGE = "last message";
 
 //#endif//LOG_CPP
 //#endif// INCLUDES_H_INCLUDED

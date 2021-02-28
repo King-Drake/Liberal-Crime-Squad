@@ -36,5 +36,7 @@ using namespace std;
 //#include "includesDeprecatedB.h"
 // cursesmovie.cpp
 
+const string CONST_X_RB = "rb";
+const string CONST_X_WB = "wb";
 //#endif//CURSESMOVIE_CPP
 //#endif// INCLUDES_H_INCLUDED

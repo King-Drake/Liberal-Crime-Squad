@@ -389,16 +389,14 @@ UnlockAttempt hack(short type)
 /* run a broadcast */
 char run_broadcast(bool tv_broadcase)
 {
+	vector<NameAndAlignment> encounter = getEncounterNameAndAlignment();
+	setSiteAlarmOne();
 	int enemy = 0;
+	for (int e = 0; e < ENCMAX; e++)
 	{
-		vector<NameAndAlignment> encounter = getEncounterNameAndAlignment();
-		setSiteAlarmOne();
-		for (int e = 0; e < ENCMAX; e++)
+		if (encounter[e].exists&&encounter[e].alive)
 		{
-			if (encounter[e].exists && encounter[e].alive)
-			{
-				if (encounter[e].align == -1)enemy++;
-			}
+			if (encounter[e].align == -1)enemy++;
 		}
 	}
 	if (enemy > 0)

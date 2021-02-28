@@ -14,4 +14,7 @@ void dejuiceBoss(DeprecatedCreature &g);
 
 DeprecatedCreature * getSleeperJudge(DeprecatedCreature g);
 DeprecatedCreature * getSleeperLawyer(DeprecatedCreature g);
+int getSleeperPresidentStatus();
+int IsPresidentLCS();
+void clearSleeperPresident();
 int otherPrisonersEscapeWithMe(DeprecatedCreature g, int prison);

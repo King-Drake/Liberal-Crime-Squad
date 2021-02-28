@@ -1274,7 +1274,7 @@ char sally_forth_aux(int loc)
 		int partysize = 0, partyalive = 0;
 		countHeroes(partysize, partyalive);
 		// Count bad guys
-		//int encsize = encounterSize();
+		int encsize = encounterSize();
 		// Let's roll
 		autopromote(loc);
 		printLocationName(LocationsPool::getInstance().getLocationName(loc));

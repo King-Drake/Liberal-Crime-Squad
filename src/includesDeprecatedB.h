@@ -20,8 +20,8 @@ enum Bouncer_Reject_Reason
 
 
 
-const string PACKAGE_VERSION_STR = "4.12.59";
-const int version = 41259;
+const string PACKAGE_VERSION_STR = "4.12.58";
+const int version = 41258;
 const int lowestloadversion = 40100;
 const int lowestloadscoreversion = 31203;
 

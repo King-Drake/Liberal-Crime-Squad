@@ -124,6 +124,7 @@ void DeprecatedCreature::copy(const DeprecatedCreature& org)
 	seethroughdisguise = org.seethroughdisguise;
 	seethroughstealth = org.seethroughstealth;
 	istalkreceptive = org.istalkreceptive;
+	//nevertalkordate = org.nevertalkordate;
 	iskidnap_resistant = org.iskidnap_resistant;
 	isreports_to_police = org.isreports_to_police;
 }
@@ -249,6 +250,7 @@ void DeprecatedCreature::creatureinit()
 	seethroughstealth = 3;
 	seethroughdisguise = 3;
 	istalkreceptive = 0;
+	nevertalkordate = 0;
 	iskidnap_resistant = 0;
 	isreports_to_police = 0;
 	forceinc = 0;
@@ -970,6 +972,11 @@ bool DeprecatedCreature::talkreceptive() const
 	return !enemy() && istalkreceptive;
 }
 
+bool DeprecatedCreature::wontdateortalk() const
+{
+	return nevertalkordate;
+}
+
 bool DeprecatedCreature::can_date(const int aage, const char aanimalgloss) const {
 
 	if (!ZEROMORAL) {
@@ -993,7 +1000,7 @@ void DeprecatedCreature::die()
 	if (id == uniqueCreatures.President().id)
 	{
 		strcpy(oldPresidentName, execname[EXEC_PRESIDENT]);
-		promoteVP();
+		promoteVP(); 
 		uniqueCreatures.newPresident();
 	}
 }

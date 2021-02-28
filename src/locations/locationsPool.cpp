@@ -218,6 +218,7 @@ const string LocationsPool::getLocationNameWithGetnameMethod(int cursite, signed
 	return getLocationNameWithGetnameMethod(cursite, a, false);
 }
 
+const string CONST_AWAY = "Away";
 const string LocationsPool::getLocationNameWithGetnameMethod(int cursite, signed char a, bool b)const
 {
 	if (cursite == -1) {

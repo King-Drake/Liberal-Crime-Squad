@@ -25,6 +25,7 @@ This file is part of Liberal Crime Squad.                                       
 		the bottom of includes.h in the top src folder.
 */
 #include "../includes02.h"
+#include "../constStringtitlescreen.h"
 void title_screen::choose_savefile_name()
 {
 	savefile_name = printNewGameHeader();

@@ -50,3 +50,6 @@ int getkeyAlt();
 
 bool is_page_up(const int c);
 bool is_page_down(const int c);
+
+//needed to display who signed bill.
+extern int getSleeperPresidentStatus();

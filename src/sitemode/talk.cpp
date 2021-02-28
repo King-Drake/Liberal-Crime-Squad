@@ -421,10 +421,19 @@ void heyINeedAGun(DeprecatedCreature &a, DeprecatedCreature &tk)
 
 void wannaHearSomethingDisturbing(DeprecatedCreature &a, DeprecatedCreature &tk)
 {
+	bool neverinterested = tk.wontdateortalk();
+	if (neverinterested)
+	{
+		//todo print custom message based on alignment
+		printWontTalk(tk.align);
+		pressAnyKey();
+		return;
+	}
 	printCommonXeDoesStatement(eprintWannaHearSomething,a.getNameAndAlignment().name);
 	pressAnyKey();
+	
 	bool interested = tk.talkreceptive();
-	if (!interested && a.skill_check(SKILL_PERSUASION, DIFFICULTY_AVERAGE))
+	if (!interested && a.skill_check(SKILL_PERSUASION, DIFFICULTY_AVERAGE) && !neverinterested)
 	{
 		interested = true;
 	}
@@ -450,6 +459,14 @@ void wannaHearSomethingDisturbing(DeprecatedCreature &a, DeprecatedCreature &tk)
 void doYouComeHereOften(DeprecatedCreature &a, DeprecatedCreature &tk)
 {
 	vector<string> selected_flirt;
+	bool neverinterested = tk.wontdateortalk();
+	if (neverinterested)
+	{
+		//todo print message based on alignment
+		printWontDate(tk.align);
+		pressAnyKey();
+		return;
+	}
 	if (lawList[LAW_FREESPEECH] == -2)
 	{
 		selected_flirt = pickrandom(no_free_speech_flirt);

@@ -79,6 +79,9 @@ public:
 	//int attval(int a,char usejuice=1);
 	/* are they interested in talking about the issues? */
 	bool talkreceptive() const;
+	/* if this is true the creature will never accept dates or talk about the issues (note the bool is not used in xml as currently it is only
+	applied post creature creation)*/
+	bool wontdateortalk() const;
 	/* rolls up a proper name for a creature */
 	void namecreature();
 	/* can turn the tables on datenapping */
@@ -470,6 +473,9 @@ public:
 	void settalkreceptive(const bool istalkreceptive_) {
 		istalkreceptive = istalkreceptive_;
 	}
+	void setnevertalkordate(const bool nevertalkordate_) {
+		nevertalkordate = nevertalkordate_;
+	}
 	void setseethroughstealth(const int seethroughstealth_) {
 		seethroughstealth = seethroughstealth_;
 	}
@@ -517,6 +523,7 @@ private:
 	int seethroughdisguise;
 	int seethroughstealth;
 	bool istalkreceptive;
+	bool nevertalkordate;
 	bool iskidnap_resistant;
 	bool isreports_to_police;
 

@@ -1703,11 +1703,15 @@ void special_oval_office()
 		emptyEncounter();
 		clearmessagearea(false);
 		set_color_easy(WHITE_ON_BLACK_BRIGHT);
-		mvaddstrAlt(16, 1, CONST_THE_PRESIDENT_IS_IN_THE_OVAL_OFFICE, gamelog);
+
+		
+		if (spawnPresident() < 2)
+			mvaddstrAlt(16, 1, CONST_THE_PRESIDENT_IS_IN_THE_OVAL_OFFICE, gamelog);
+		else
+			mvaddstrAlt(16, 1, CONST_THE_PRESIDENT_ISN_T_HERE, gamelog);
 		gamelog.newline();
 		printsitemap(loc_coord.locx, loc_coord.locy, loc_coord.locz);
-		for (int e = 0; e < 2; e++)make_creature_without_encounter_array(e, CREATURE_SECRET_SERVICE);
-		spawnPresident();
+		//for (int e = 0; e < 2; e++)make_creature_without_encounter_array(e, CREATURE_SECRET_SERVICE);
 		printencounter();
 		pressAnyKey();
 	}

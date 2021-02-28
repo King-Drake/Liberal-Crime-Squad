@@ -1148,10 +1148,7 @@ Replaced #include guards with #pragma once
 Fixed most remaining const string names
 Removed unused preprocessor statements
 Removed Linux "Support" Preprocessor Statements
-Added Discord Link
 
 String transfer 00,01,24,47,58,59,69
 
-4.12.59
-Finished String transfer
-Fixed error where SiegeMode Cover Fire may shoot at dead targets
+Astronauts?

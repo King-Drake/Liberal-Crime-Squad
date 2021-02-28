@@ -39,5 +39,9 @@ std::string tostring(long i);
 //#ifdef	MONEY_CPP
 // money.cpp
 
+const string CONST_DOLLAR_SIGN = "$";
+const string CONST_AMOUNT = "amount";
+
+const string tag_money = "money";
 //#endif//MONEY_CPP
 //#endif// INCLUDES_H_INCLUDED

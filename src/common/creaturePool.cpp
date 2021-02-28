@@ -1452,6 +1452,118 @@ DeprecatedCreature * getSleeperLawyer(DeprecatedCreature g) {
 		}
 	return sleeperlawyer;
 }
+
+/*
+
+	1 - Not apart of the LCS / Laying Low
+
+	2 - Advocating Liberalism
+
+	3 - Absent
+
+*/
+int getSleeperPresidentStatus()
+{
+	for (int p = 0; p < len(pool); p++)
+	{
+		if (pool[p]->getNameAndAlignment().alive)
+		{
+			//this could have issues if we later use the President's type for other creatures (or we alllow them to be comman types)
+			if (pool[p]->id == uniqueCreatures.President().id)
+			{
+				if ((pool[p]->flag & CREATUREFLAG_SLEEPER))
+				{
+					//if President is advocating for elite lib they vote like it
+					if (pool[p]->activity_type() == ACTIVITY_SLEEPER_LIBERAL)
+						return 1;
+					else
+						return 0;
+				}
+				//if the President is absent let the VP vote
+				else
+					return 2;
+			}
+
+		}
+	}
+	//President is not LCS and votes as normal.
+	return 0;
+}
+
+
+//Name is a bit misleading as this currently only clears their name (which is broken as of now)
+void clearSleeperPresident()
+{
+	for (int p = 0; p < len(pool); p++)
+	{
+		if (pool[p]->getNameAndAlignment().alive)
+		{
+			if (pool[p]->id == uniqueCreatures.President().id)
+			{
+				pool[p]->propername[CREATURE_NAMELEN] = pool[p]->name[CREATURE_NAMELEN];
+			}
+		}
+	}
+	//clear recruit pool as well (might need to do dating)
+	for (int r = 0; r < len(recruit); r++)
+	{
+		if (recruit[r]->recruit->getNameAndAlignment().alive)
+		{
+			if (recruit[r]->recruit->id == uniqueCreatures.President().id)
+			{
+				recruit[r]->recruit->name[CREATURE_NAMELEN] = recruit[r]->recruit->propername[CREATURE_NAMELEN];
+			}
+
+		}
+	}
+}
+
+/*
+
+	0 - Not apart of the LCS
+
+	1 - Apart of the LCS and a sleeper
+
+	2 - Active memeber of the LCS / Away
+
+
+*/
+int IsPresidentLCS()
+{
+	DeprecatedCreature* president = NULL;
+
+	//recruits need to be checked first.
+	for (int r = 0; r < len(recruit); r++)
+	{
+		if (recruit[r]->recruit->getNameAndAlignment().alive)
+		{
+			if (recruit[r]->recruit->id == uniqueCreatures.President().id)
+			{
+				return 2;
+			}
+		}
+	}
+
+	for (int p = 0; p < len(pool); p++)
+	{
+		if (pool[p]->getNameAndAlignment().alive)
+		{
+			//checking by type is not the best. However it allows us to clear sleeper ex-presidents easier
+			if (pool[p]->id == uniqueCreatures.President().id)
+			{
+				if ((pool[p]->flag & CREATUREFLAG_SLEEPER))
+				{
+					return 1;
+				}
+				return 2;
+			}
+
+		}
+	}
+	
+	return 0;
+}
+
 int otherPrisonersEscapeWithMe(DeprecatedCreature g, int prison) {
 	int num_escaped = 0;
 	for (int p = 0; p < CreaturePool::getInstance().lenpool(); p++)

@@ -40,6 +40,13 @@ using namespace std;
 //#ifdef	CREATURENAMES_CPP
 // creaturenames.cpp
 
+const string ARCHCONSERVATIVE_LAST_NAMES_TXT = "archconservative_last_names.txt";
+const string REGULAR_LAST_NAMES_TXT = "regular_last_names.txt";
+const string GWMP_FIRST_NAMES_TXT = "great_white_male_patriarch_first_names.txt";
+const string GENDER_NEUTRAL_FIRST_NAMES_TXT = "gender_neutral_first_names.txt";
+const string FEMALE_FIRST_NAMES_TXT = "female_first_names.txt";
+const string MALE_FIRST_NAMES_TXT = "male_first_names.txt";
+const string names = "names\\";
 //#endif//CREATURENAMES_CPP
 //#ifdef	GLOBALS_CPP
 // globals.cpp
@@ -116,6 +123,28 @@ void removesquadinfo(DeprecatedCreature &cr);
 Deprecatednewsstoryst* lastNewsStory();
 bool populate_masks_from_xml(vector<ArmorType*>& masks, const string& file, Log& log);
 
+
+const string hasRecruited = " has recruited a new ";
+const string looksForwardToServing = " looks forward serving the Liberal cause!";
+const string CONST_WE_NEED_A_SLOGAN = "We need a slogan!";
+const string tag_WEAPON_FLAMETHROWER = "WEAPON_FLAMETHROWER";
+const string tag_WEAPON_DESERT_EAGLE = "WEAPON_DESERT_EAGLE";
+const string CONST_X_DEFENSE = " Defense";
+const string CONST_THE_INTERVIEW_IS_WIDE_RANGING_COVERING_A_VARIETY_OF_TOPICS = "The interview is wide-ranging, covering a variety of topics.";
+const string CONST_DECIDES_TO_GIVE_AN_INTERVIEW = " decides to give an interview.";
+const string CONST_AUGMENTATIONS_XML = "augmentations.xml";
+const string CONST_CREATURES_XML = "creatures.xml";
+const string CONST_LOOT_XML = "loot.xml";
+const string CONST_MASKS_XML = "masks.xml";
+const string CONST_ARMORS_XML = "armors.xml";
+const string CONST_WEAPONS_XML = "weapons.xml";
+const string CONST_CLIPS_XML = "clips.xml";
+const string CONST_VEHICLES_XML = "vehicles.xml";
+const string CONST_XMLLOG = "xmllog";
+const string CONST_DEFAULT_SLOGANS_TXT = "default_slogans.txt";
+const string tag_value = "value";
+const string tag_attribute = "attribute";
+const string tag_skill = "skill";
 
 //#endif//GLOBALS_CPP
 //#endif// INCLUDES_H_INCLUDED

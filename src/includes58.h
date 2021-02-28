@@ -104,3 +104,6 @@ void savehighscore(char endtype);
 void viewhighscores(int musicoverride = MUSIC_OFF);
 void end_game(int err = EXIT_SUCCESS);
 short getCurrentSite();
+extern UniqueCreatures uniqueCreatures;
+extern long curcreatureid;
+extern vector<Deprecatedrecruitst*> recruit;

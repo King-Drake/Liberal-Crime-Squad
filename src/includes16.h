@@ -169,6 +169,13 @@ extern short presparty;
 extern short public_interest[VIEWNUM];
 extern short senate[SENATENUM];
 extern short wincondition;
+extern int getSleeperPresidentStatus();
+extern void clearSleeperPresident();
+extern int monthsPresidentMissing;
+
+const string CONST_UNITED_STATES = "United States";
+const string corporateSuffixtxt = "corporateSuffix.txt";
+const string MOSTLY_ENDINGS_FOLDER = "mostlyendings\\";
 
 void addStringYear();
 void printCONST_PRESS_ANY_KEY_TO_CONTINUE_THE_ELECTIONS();

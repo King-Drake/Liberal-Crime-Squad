@@ -1804,7 +1804,6 @@ void youattack()
 					if (pool[p]->can_reload()) conf = 1;
 				if (conf)
 				{
-					encounter = getEncounterNameAndAlignment();
 					vector<int> goodtarg, badtarg;
 					for (int e = 0; e < ENCMAX; e++)
 					{
@@ -1844,7 +1843,7 @@ void youattack()
 							criminalize(*pool[p], LAWFLAG_ASSAULT);
 						else criminalize(*pool[p], LAWFLAG_ARMEDASSAULT);
 					}
-					if (!getEncounterNameAndAlignment()[target].alive) delenc(target, 1);
+					if (!encounter[target].alive) delenc(target, 1);
 				}
 			}
 		}

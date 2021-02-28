@@ -39,7 +39,7 @@ the bottom of includes.h in the top src folder.
  {
 	 set_color_easy(WHITE_ON_BLACK);
 	 mvaddstrAlt(16, 0, WHAT_IS_YOUR_NEW_SLOGAN);
-	 mvaddstrAlt(17, 0, CONST_80_SPACES); // 80 spaces
+	 mvaddstrAlt(17, 0, MANY_SPACES_SOMETHING); // 80 spaces
 	 enter_name(17, 0, slogan, SLOGAN_LEN, pickrandom(default_slogans).c_str());
 	 slogan_str = slogan;
  }

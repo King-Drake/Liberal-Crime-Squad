@@ -290,7 +290,7 @@ void sitemodeCreatureAdvance() {
 void creatureadvance()
 {
 
-	
+	vector<NameAndAlignment> encounter = getEncounterNameAndAlignment();
 	for (int p = 0; p < 6; p++)
 	{
 		if (activesquad->squad[p] == NULL) continue;
@@ -335,7 +335,6 @@ void creatureadvance()
 		CreaturePool::getInstance().advanceCreaturesAtLocation(getCurrentSite());
 		autopromote(getCurrentSite());
 	}
-	vector<NameAndAlignment> encounter = getEncounterNameAndAlignment();
 	for (int e = 0; e < ENCMAX; e++)
 	{
 		if (!encounter[e].exists) continue;

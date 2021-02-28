@@ -1025,6 +1025,9 @@ void conservatiseEncslot(const int encslot);
 void conservatise(const int c);
 void damage_creature(const int e);
 vector<NameAndAlignment> getEncounterNameAndAlignment();
+const string tag_value = "value";
+const string tag_attribute = "attribute";
+const string tag_skill = "skill";
 
 //#endif//NEWENCOUNTER_CPP
 //#endif// INCLUDES_H_INCLUDED

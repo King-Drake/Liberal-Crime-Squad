@@ -120,6 +120,7 @@ short court[COURTNUM];
 char courtname[COURTNUM][POLITICIAN_NAMELEN];
 short exec[EXECNUM];
 short execterm = 1;
+
 char execname[EXECNUM][POLITICIAN_NAMELEN];
 short presparty = CONSERVATIVE_PARTY;
 char oldPresidentName[POLITICIAN_NAMELEN];
@@ -144,6 +145,8 @@ short sitealarmtimer;
 short postalarmtimer;
 short siteonfire;
 int sitecrime;
+int monthsPresidentMissing; //TODO news events and searches for them. // should be in the Unique creatures class but that's causing issues with politics.cpp
+
 
 bool mapshowing = false;
 bool encounterwarnings = false;
@@ -474,8 +477,31 @@ void conservatise(const int e) {
 	conservatise(encounter[e]);
 }
 
-void spawnPresident() {
-	encounter[2] = uniqueCreatures.President();
+int spawnPresident() {
+	DeprecatedCreature* LibPres = NULL;
+	int pres_align = IsPresidentLCS();
+	if (pres_align == 1)
+	{
+		DeprecatedCreature LibPres = uniqueCreatures.President();
+		LibPres.align = ALIGN_ELITELIBERAL;
+		LibPres.gender_liberal = uniqueCreatures.President().gender_conservative;
+		LibPres.setnevertalkordate(1);
+		encounter[0] = LibPres;
+		return 1;
+	}
+	else if (pres_align == 2)
+	{
+		return 2;
+	}
+	else
+	{
+		int e = 0;
+		for (; e < 2; e++)make_creature_without_encounter_array(e, CREATURE_SECRET_SERVICE);
+		encounter[e] = uniqueCreatures.President();
+		return 1;
+	}
+	//fallback
+	return 2;
 }
 void liberalizeEncounterIfThisType(const int type) {
 

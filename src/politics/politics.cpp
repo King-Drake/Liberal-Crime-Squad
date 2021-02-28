@@ -256,22 +256,31 @@ vector<string> corporateSuffix;
 	 return vote;
  }
 
- /* politics -- appoints a figure to an executive office, based on the President's alignment */
+ /* politics -- appoints a figure to an executive office, based on the President's alignment*/
  void fillCabinetPost(int position)
  {
-	 // Set alignment
-	 if (exec[EXEC_PRESIDENT] == ALIGN_ARCHCONSERVATIVE) exec[position] = ALIGN_ARCHCONSERVATIVE;
-	 else if (exec[EXEC_PRESIDENT] == ALIGN_ELITELIBERAL) exec[position] = ALIGN_ELITELIBERAL;
-	 else if (exec[EXEC_PRESIDENT] == ALIGN_STALINIST) exec[position] = ALIGN_STALINIST;
-	 else exec[position] = exec[EXEC_PRESIDENT] + LCSrandom(3) - 1;
+	 int pres_status = getSleeperPresidentStatus();
+		// Check if the President is a sleeper and set alignment based on the response (or VP votes like the President)
+	 if (pres_status == 1)
+		 exec[position] = ALIGN_ELITELIBERAL;
+	 else
+	 {
+		 if (exec[EXEC_PRESIDENT] == ALIGN_ARCHCONSERVATIVE) exec[position] = ALIGN_ARCHCONSERVATIVE;
+		 else if (exec[EXEC_PRESIDENT] == ALIGN_ELITELIBERAL) exec[position] = ALIGN_ELITELIBERAL;
+		 else if (exec[EXEC_PRESIDENT] == ALIGN_STALINIST) exec[position] = ALIGN_STALINIST;
+		 else exec[position] = exec[EXEC_PRESIDENT] + LCSrandom(3) - 1;
+	 }
+
 	 // Set name
 	 if (exec[position] == ALIGN_ARCHCONSERVATIVE) generate_name(execname[position], GENDER_WHITEMALEPATRIARCH);
 	 else if (exec[position] == ALIGN_CONSERVATIVE) generate_name(execname[position], GENDER_MALE);
 	 else generate_name(execname[position]);
  }
- /* politics -- promotes the Vice President to President, and replaces VP */
+ /* politics -- promotes the Vice President to President, and replaces VP*/
  void promoteVP()
  {
+	 //revoke sleeper Presidents position.
+	 clearSleeperPresident();
 	 exec[EXEC_PRESIDENT] = exec[EXEC_VP]; // VP takes over as President
 	 strcpy(execname[EXEC_PRESIDENT], execname[EXEC_VP]);
 	 switch (exec[EXEC_PRESIDENT])
@@ -784,6 +793,7 @@ vector<string> corporateSuffix;
 	 if (winner == presparty && execterm == 1) execterm = 2;
 	 else
 	 {
+		 clearSleeperPresident();
 		 presparty = winner, execterm = 1, exec[EXEC_PRESIDENT] = candidate[winner][0];
 		 strcpy(execname[EXEC_PRESIDENT], candidate[winner] + 1);
 		 for (int e = EXEC_PRESIDENT + 1; e < EXECNUM; e++) fillCabinetPost(e);
@@ -1306,6 +1316,36 @@ vector<int> getSenateMake() {
 						 else vote = ALIGN_ARCHCONSERVATIVE;
 					 }
 				 }
+				 //todo make this check sleeper state.
+				 int pres_status = getSleeperPresidentStatus();
+				 if (pres_status > 0)
+				 {
+					 if (pres_status == 1)
+					 {
+						 //temp to test id refactor
+						 
+						 vote = ALIGN_ELITELIBERAL;
+					 }
+					 else if (pres_status == 2)
+					 {
+						 //VP rushes because waiting on the President until last minute and does not consult Cabinet
+						 vote = exec[EXEC_VP];
+						 monthsPresidentMissing++;
+						 //(right now the handling of the missing president is not realistic or interesting. However I feel it's better than nothing
+						 //President has been missing for too long. Promote VP and just remove them.
+						 //if (monthsPresidentMissing > (monthsPresidentMissing + LCSrandom(7 - 1)))
+						 if (monthsPresidentMissing > (monthsPresidentMissing + LCSrandom(7 - 1)))
+						 {
+							 promoteVP();
+							 monthsPresidentMissing = 0;
+
+						 }
+					 }
+				 }
+				 //President has reappeared.
+				 if (pres_status != 2)
+					 monthsPresidentMissing = 0;
+					 
 				 if ((lawList[bill[c]] > vote&&billdir[c] == -1) || (lawList[bill[c]] < vote&&billdir[c] == 1)) killbill[c] = BILL_SIGNED;
 			 }
 			 if (canseethings)

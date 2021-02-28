@@ -37,6 +37,7 @@ const bool OVERWRITE_GAMELOG = false;
 
 //The filepath of the gamelog.
 //TODO: Make this be set via the cfg.
+const string GAMELOG_FILEPATH = "gamelog.txt";
 //#include "log/log.h"
 //End of Ripped segment
 

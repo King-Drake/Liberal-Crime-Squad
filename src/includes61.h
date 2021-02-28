@@ -39,7 +39,44 @@ using namespace std;
 
 
 //#include "includesDeprecatedB.h"
+const string CHOOSE_A_LIBERAL_TO = "Choose a Liberal squad member to ";
 // haulkidnap.cpp
+
+const string CONST_IS_THE_ONLY_VIABLE_TARGET = " Is The Only Viable Target";
+const string CONST_STILL_KIDNAP_Y_N = "Still Kidnap? [Y/N]";
+const string CONST_HAULS = " hauls ";
+const string CONST_IS_LEFT_TO_BE_CAPTURED = " is left to be captured.";
+const string CONST_NOBODY_CAN_CARRY_MARTYR = "Nobody can carry Martyr ";
+const string CONST_CAN_NO_LONGER_HANDLE = " can no longer handle ";
+const string CONST_X_SOME_WHITESPACE = "                                  ";
+const string CONST_THE_HOSTAGE_SHOUTS_FOR_HELP = "The hostage shouts for help!      ";
+const string CONST_RELEASE_THEIR_HOSTAGE = "release their hostage.";
+const string CONST_NO_HOSTAGES_ARE_BEING_HELD = "No hostages are being held.       ";
+const string CONST_X_MUCH_WHITESPACE = "                                                     ";
+const string CONST_ALL_OF_THE_TARGETS_ARE_TOO_DANGEROUS = "All of the targets are too dangerous.                ";
+const string CONST_KIDNAP_WHOM = "Kidnap whom?";
+const string CONST_DO_THE_JOB = "do the job.";
+const string CONST_NO_ONE_CAN_DO_THE_JOB = "No one can do the job.            ";
+const string CONST_X_IS_CAPTURED = " is captured.";
+const string CONST_X_IS_RECAPTURED = " is recaptured.";
+const string CONST_A_HOSTAGE_ESCAPES = "A hostage escapes!";
+const string CONST_IS_CAPTURED = " is captured";
+const string CONST_IS_RECAPTURED = " is recaptured";
+const string CONST_AND_A_HOSTAGE_IS_FREED = " and a hostage is freed";
+const string CONST_AND_SAYS = "and says, ";
+const string CONST_X_THE_ = " the ";
+const string CONST_SHOWS = " shows ";
+const string CONST_WRITHES_AWAY = " writhes away!";
+const string CONST_BUT = "but ";
+const string CONST_GRABS_AT = " grabs at ";
+const string CONST_IS_STRUGGLING_AND_SCREAMING = " is struggling and screaming!";
+//const string CONST_EXCLAMATION_POINT = "!";
+const string CONST_SNATCHES = " snatches ";
+const string CONST_PLEASE_BE_COOL = "\"[Please], be cool.\"";
+const string CONST_BITCH_BE_COOL = "\"Bitch, be cool.\"";
+const string tag_value = "value";
+const string tag_attribute = "attribute";
+const string tag_skill = "skill";
 
 #include "../creature/creature.h"
 ////
